@@ -107,6 +107,21 @@ if pgrep -x cava > /dev/null; then
     pkill -USR1 cava 2>/dev/null || true
 fi
 
+# ── Reload tmux colors ────────────────────────────────────────
+if pgrep -x tmux > /dev/null; then
+    echo ":: Reloading tmux colors..."
+    if [[ -f "$HOME/.config/sumi/tmux-colors.conf" ]]; then
+        tmux source-file "$HOME/.config/sumi/tmux-colors.conf" 2>/dev/null || true
+    fi
+fi
+
+# ── Reload foot terminal colors ──────────────────────────────
+# foot picks up config changes via SIGUSR1 (no restart needed)
+if pgrep -x foot > /dev/null; then
+    echo ":: Reloading foot colors..."
+    pkill -USR1 foot 2>/dev/null || true
+fi
+
 # ── Btop theme note ────────────────────────────────────────────
 if [[ -f "$HOME/.config/btop/themes/wallust.theme" ]]; then
     echo ":: btop theme updated (applies on next launch)"

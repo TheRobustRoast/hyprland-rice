@@ -63,4 +63,28 @@ for pidfile in /tmp/sumi-*.pid; do
     fi
 done
 
+# ── Prune sumi cache (old session saves, wallust leftovers) ──
+CACHE_DIR="$HOME/.cache/sumi"
+if [[ -d "$CACHE_DIR/sessions" ]]; then
+    OLD_SESS=$(find "$CACHE_DIR/sessions" -type f -name "*.json" -mtime +30 2>/dev/null)
+    if [[ -n "$OLD_SESS" ]]; then
+        COUNT=$(echo "$OLD_SESS" | wc -l)
+        echo "$OLD_SESS" | xargs rm -f
+        echo ":: Pruned $COUNT old session saves (>30d)"
+    fi
+fi
+
+# ── Clean orphaned wallust temp files ────────────────────────
+find /tmp -maxdepth 1 -name "wallust*" -mtime +1 -delete 2>/dev/null
+
+# ── Trim zsh history deduplication ───────────────────────────
+HISTFILE="$HOME/.zsh_history"
+if [[ -f "$HISTFILE" ]]; then
+    LINES=$(wc -l < "$HISTFILE")
+    if [[ "$LINES" -gt 50000 ]]; then
+        tail -n 30000 "$HISTFILE" > "${HISTFILE}.tmp" && mv "${HISTFILE}.tmp" "$HISTFILE"
+        echo ":: Trimmed zsh history from $LINES to 30000 lines"
+    fi
+fi
+
 echo ":: Cleanup done."

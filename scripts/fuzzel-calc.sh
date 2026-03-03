@@ -5,6 +5,10 @@
 # ║  Uses python3 for evaluation (safe subset via ast)          ║
 # ╚══════════════════════════════════════════════════════════════╝
 
+for cmd in fuzzel python3 wl-copy; do
+    command -v "$cmd" &>/dev/null || { notify-send -a sumi "Calculator" "Missing: $cmd"; exit 1; }
+done
+
 RESULT=$(echo "" | fuzzel --dmenu \
     --prompt "calc: " \
     --width 25 \

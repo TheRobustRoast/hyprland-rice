@@ -4,6 +4,15 @@
 # ║  Launch: via control center or `dotsync` alias              ║
 # ╚══════════════════════════════════════════════════════════════╝
 
+# Check deps
+for cmd in git rsync fzf; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Missing: $cmd"
+        read -r -p "Press enter..."
+        exit 1
+    fi
+done
+
 DOTFILE_REPO="$HOME/.dotfiles"
 CONFIG="$HOME/.config"
 

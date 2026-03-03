@@ -26,6 +26,8 @@
         "custom/focus-mode",
         "tray",
         "custom/separator",
+        "temperature",
+        "custom/separator",
         "custom/power-profile",
         "custom/separator",
         "pulseaudio",
@@ -154,6 +156,16 @@
         "on-scroll-up": "brightnessctl set 2%+",
         "on-scroll-down": "brightnessctl set 2%-",
         "tooltip-format": "Brightness: {percent}%"
+    },
+
+    "temperature": {
+        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+        "input-filename": "temp1_input",
+        "format": "cpu:{temperatureC}°",
+        "format-critical": "cpu:{temperatureC}°!",
+        "critical-threshold": 85,
+        "interval": 5,
+        "tooltip-format": "CPU: {temperatureC}°C / {temperatureF}°F"
     },
 
     "tray": {

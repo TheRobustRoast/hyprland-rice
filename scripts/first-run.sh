@@ -69,8 +69,20 @@ $CONVERT -size 2880x1920 \
 # Apply the first one
 if [[ -f "$WALL_DIR/sumi-dark-blue.png" ]]; then
     "$SCRIPTS/wallpaper-apply.sh" "$WALL_DIR/sumi-dark-blue.png" 2>/dev/null
-    notify-send -a sumi -t 5000 "[ sumi :: ready ]" \
-        "3 starter wallpapers generated.\nSUPER+SHIFT+W to pick a wallpaper.\nDrop your own in ~/Pictures/Wallpapers/"
 fi
 
 touch "$FIRST_RUN_FLAG"
+
+# ── Welcome tour (brief key hints) ───────────────────────────
+sleep 2
+notify-send -a sumi -t 8000 "[ sumi :: welcome ]" \
+    "Your rice is ready. Here are the essentials:
+
+SUPER+D        app launcher
+SUPER+Return   terminal
+SUPER+X        control center (all TUIs)
+SUPER+/        keybind cheatsheet
+SUPER+SHIFT+W  pick wallpaper
+SUPER+E        file manager (yazi)
+
+Drop wallpapers in ~/Pictures/Wallpapers/"

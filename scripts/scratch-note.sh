@@ -4,6 +4,15 @@
 # ║  Launch: SUPER+SHIFT+N or via control center                ║
 # ╚══════════════════════════════════════════════════════════════╝
 
+# Check deps
+for cmd in fzf nvim rg bat; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Missing: $cmd"
+        read -r -p "Press enter..."
+        exit 1
+    fi
+done
+
 NOTES_DIR="$HOME/Documents/notes"
 mkdir -p "$NOTES_DIR"
 

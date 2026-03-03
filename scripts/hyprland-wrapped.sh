@@ -48,6 +48,15 @@ while true; do
 
     echo "[$(date)] Hyprland crashed with exit code $exit_code" >> "$LOG_FILE"
 
+    # Capture recent journal entries for debug
+    journalctl --user -b -n 30 --no-pager >> "$LOG_FILE" 2>/dev/null
+    echo "---" >> "$LOG_FILE"
+
+    # Keep log from growing unbounded
+    if [[ -f "$LOG_FILE" ]] && (( $(wc -l < "$LOG_FILE") > 1000 )); then
+        tail -n 500 "$LOG_FILE" > "${LOG_FILE}.tmp" && mv "${LOG_FILE}.tmp" "$LOG_FILE"
+    fi
+
     # Brief delay before restart to avoid CPU spin
     sleep 1
 done

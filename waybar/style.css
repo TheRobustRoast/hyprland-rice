@@ -24,6 +24,7 @@ window#waybar {
 #window,
 #clock,
 #pulseaudio,
+#temperature,
 #network,
 #battery,
 #backlight,
@@ -110,6 +111,14 @@ window#waybar {
 }
 
 /* ── Right modules ─────────────────────────────────────────── */
+#temperature {
+    color: @subtle;
+}
+#temperature.critical {
+    color: @urgent;
+    animation: blink 1s steps(2) infinite;
+}
+
 #pulseaudio {
     color: @subtle;
 }

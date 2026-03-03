@@ -11,6 +11,11 @@ $git_status\
 $python\
 $rust\
 $nodejs\
+$golang\
+$lua\
+$c\
+$docker_context\
+$direnv\
 $cmd_duration\
 $battery\
 $status\
@@ -97,6 +102,30 @@ style = "dimmed red"
 [nodejs]
 format = '[js:${version}]($style) '
 style = "dimmed yellow"
+
+[golang]
+format = '[go:${version}]($style) '
+style = "dimmed cyan"
+
+[lua]
+format = '[lua:${version}]($style) '
+style = "dimmed blue"
+
+[c]
+format = '[c:${version}]($style) '
+style = "dimmed white"
+
+[docker_context]
+format = '[docker:${context}]($style) '
+style = "dimmed blue"
+only_with_files = true
+
+[direnv]
+format = '[$loaded]($style) '
+style = "dimmed yellow"
+loaded_msg = "[env]"
+unloaded_msg = ""
+disabled = false
 
 [package]
 disabled = true
