@@ -16,10 +16,16 @@ ACTION=$(printf "lock\t Lock screen\nsuspend\t Suspend (sleep)\nreboot\t Reboot\
 
 [[ -z "$ACTION" ]] && exit 0
 
+confirm() {
+    local ans
+    ans=$(printf "yes\nno" | fzf --prompt="$1 " --height=5 --reverse --no-info $FZF_THEME)
+    [[ "$ans" == "yes" ]]
+}
+
 case "$ACTION" in
     lock)     hyprlock ;;
     suspend)  systemctl suspend ;;
-    reboot)   systemctl reboot ;;
-    shutdown) systemctl poweroff ;;
-    logout)   hyprctl dispatch exit ;;
+    reboot)   confirm "Reboot now?" && systemctl reboot ;;
+    shutdown) confirm "Shutdown now?" && systemctl poweroff ;;
+    logout)   confirm "Exit Hyprland?" && hyprctl dispatch exit ;;
 esac

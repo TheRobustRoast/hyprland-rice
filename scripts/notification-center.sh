@@ -15,7 +15,8 @@ CHOICE=$(echo "$HISTORY" | fzf \
     --prompt='notif> ' \
     --header='╔════════════════════════════╗
 ║   notification history     ║
-╚════════════════════════════╝' \
+╚════════════════════════════╝
+  C-d dismiss all │ C-x clear history' \
     --header-first \
     --layout=reverse \
     --height=100% \

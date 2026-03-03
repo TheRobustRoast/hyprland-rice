@@ -332,5 +332,49 @@ if command -v tmux &>/dev/null && [[ -z "$TMUX" && -n "$PS1" && "$TERM_PROGRAM" 
     fi
 fi
 
+# ── sumi CLI — unified access to all rice scripts ──────────
+sumi() {
+    local scripts="$HOME/.config/hypr/scripts"
+    case "${1:-}" in
+        wall)     "$scripts/wallpaper-select.sh" ;;
+        wallr)    "$scripts/wallpaper-random.sh" ;;
+        theme)    "$scripts/theme-toggle.sh" ;;
+        game)     "$scripts/gaming-mode.sh" ;;
+        focus)    "$scripts/focus-mode.sh" ;;
+        clean)    "$scripts/cleanup.sh" ;;
+        dots)     "$scripts/dotfile-sync.sh" ;;
+        note)     "$scripts/scratch-note.sh" ;;
+        keys)     "$scripts/keybinds-cheatsheet.sh" ;;
+        session)  "$scripts/session-save.sh" "${@:2}" ;;
+        hotplug)  "$scripts/monitor-hotplug.sh" ;;
+        power)    "$scripts/power-profile.sh" "${2:-toggle}" ;;
+        bat)      "$scripts/framework-battery.sh" "${@:2}" ;;
+        *)
+            echo "sumi — rice management CLI"
+            echo ""
+            echo "  wall      pick wallpaper"
+            echo "  wallr     random wallpaper"
+            echo "  theme     toggle dark/light"
+            echo "  game      toggle gaming mode"
+            echo "  focus     toggle focus/DND"
+            echo "  clean     run cleanup"
+            echo "  dots      dotfile backup/restore"
+            echo "  note      quick notes"
+            echo "  keys      keybind cheatsheet"
+            echo "  session   save/restore layouts"
+            echo "  hotplug   detect monitors"
+            echo "  power     toggle power profile"
+            echo "  bat       battery management"
+            ;;
+    esac
+}
+
+# Tab completion for sumi subcommands
+_sumi() {
+    local -a cmds=(wall wallr theme game focus clean dots note keys session hotplug power bat)
+    _describe 'sumi commands' cmds
+}
+compdef _sumi sumi
+
 # ── Create cache dirs ────────────────────────────────────────
 [[ -d "$HOME/.cache/zsh" ]] || mkdir -p "$HOME/.cache/zsh"
