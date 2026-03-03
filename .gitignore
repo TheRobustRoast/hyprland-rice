@@ -11,10 +11,25 @@ Thumbs.db
 # Secrets — never commit real credentials
 archinstall/user_credentials.json
 
-# Generated theme files (wallust output)
-# These get regenerated on wallpaper change
+# Generated at runtime by wallust (per-wallpaper)
+# Don't commit these — they get regenerated on wallpaper change
 *.pyc
 __pycache__/
 
 # Session saves are per-machine
 sessions/
+
+# Crash logs
+crash.log
+
+# Local nvim state
+nvim/lazy-lock.json
+nvim/plugin/
+
+# Wallpapers (user content, too large for git)
+wallpapers/
+
+# Deprecated files (safe to delete locally)
+wofi/
+scripts/wofi-calc.sh
+wallust/templates/colors-wofi.css
